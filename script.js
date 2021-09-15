@@ -14,6 +14,18 @@ as the AC button is clicked zero appears on the screen and all the other buttons
 document.querySelectorAll(".but").forEach(ele=>ele.childNodes[1].disabled = true);
 document.getElementById("ac-btn").childNodes[1].disabled = false;
 
+/*
+
+This event handler is for shutting down the calculator by clicking the off key.
+
+*/
+document.querySelector(".off").addEventListener("click", ()=>{
+    document.querySelector(".current-compute").textContent = "";
+    document.querySelector(".previous-compute").textContent = "";
+    document.querySelectorAll(".but").forEach(ele=>ele.childNodes[1].disabled = true);
+    document.getElementById("ac-btn").childNodes[1].disabled = false;
+});
+
 document.querySelector(".ac").addEventListener("click", (event)=>{
     document.querySelector(".current-compute").textContent = event.target.dataset.ac;
     document.querySelectorAll(".but").forEach(ele => ele.childNodes[1].disabled = false);
@@ -34,15 +46,25 @@ str variable as the second operand.
 
 document.querySelectorAll(".num").forEach(ele=>{
     ele.addEventListener("click",event=>{
-        if(event.target.dataset.num === "."){
+        if(event.target.dataset.num === "." && str!=="0" && str.length === 0){
             str+="0";
         }
         str+=event.target.dataset.num;
         document.querySelector(".current-compute").textContent = str;
         if((str[str.length - 2]=== "+")||(str[str.length - 2]=== "-")||(str[str.length - 2]=== "*")||(str[str.length - 2]=== "/")){
             prevStr = str.substr(0,str.length-1);
+            if(prevStr.length === 1){
+                let temp = "0";
+                temp+= prevStr;
+                prevStr = temp;
+            }
             document.querySelector(".previous-compute").textContent = prevStr;
-            str = str.substr(-1);
+            const firstop2 = str.substr(-1);
+            if(firstop2 ==="."){
+                str = "0";
+                str+= firstop2;
+            }
+            else str = firstop2;
             document.querySelector(".current-compute").textContent = str;   
         }
     });
@@ -58,6 +80,10 @@ document.querySelectorAll(".op").forEach(ele=>{
             str+=event.target.dataset.val;
             flag = true;
             document.querySelector(".current-compute").textContent = str;
+            document.querySelectorAll(".num").forEach(ele => {
+                ele.childNodes[1].disabled = false;
+            });
+            document.querySelector(".del").childNodes[1].disabled = false;
         }   
     });
 });
@@ -76,14 +102,8 @@ document.querySelector(".equal").addEventListener("click",()=>{
     }
     else{
         let op1Str = prevStr.substr(0,prevStr.length-1);
-        if(op1Str[1]===".")
-            op1 = parseFloat(op1Str);
-        else 
-            op1 = parseInt(op1Str);
-        if(str[1]===".")
-            op2 = parseFloat(str);
-        else 
-            op2 = parseInt(str);
+        op1 = parseFloat(op1Str);
+        op2 = parseFloat(str);
         if(operator === "+"){
             ans = op1 + op2;
         }
@@ -96,10 +116,15 @@ document.querySelector(".equal").addEventListener("click",()=>{
         else if (operator === "/"){
             ans = op1/op2;
         }
+        ans = ans.toString();
         str = ans;
         flag = false;
         document.querySelector(".current-compute").textContent = ans;
     }
+    document.querySelectorAll(".num").forEach(ele => {
+        ele.childNodes[1].disabled = true;
+    });
+    document.querySelector(".del").childNodes[1].disabled = true;
 });
 
 /*
@@ -117,10 +142,14 @@ document.querySelector(".del").addEventListener("click",()=>{
         document.querySelector(".current-compute").textContent = str;
 });
 
-document.querySelectorAll(".but").forEach(ele => {
-    ele.childNodes[1].style.opacity = "60%";
-});
+/*
+To stop the user from adding multiple decimal points in a number
 
+*/
+
+document.querySelector(".decimal").addEventListener("click", event =>{
+    event.target.disabled = true;
+});
 
 
 

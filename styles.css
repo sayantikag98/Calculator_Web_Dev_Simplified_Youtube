@@ -22,7 +22,7 @@ main{
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(6, 1fr);
     grid-template-areas: "answer answer answer answer"
-    "ac ac del divide"
+    "off ac del divide"
     "num-1 num-2 num-3 mul"
     "num-4 num-5 num-6 addition"
     "num-7 num-8 num-9 subtraction"
@@ -60,12 +60,16 @@ main{
     color: rgb(68, 67, 67);
     outline: none;
     border: 0.5px solid whitesmoke;
-    opacity: 90%;
+    opacity: 70%;
     font-weight: bolder;
 }
 
 .but button:hover{
     background-color: rgb(243, 239, 239);
+}
+
+.off{
+    grid-area: off;
 }
 
 .ac{
