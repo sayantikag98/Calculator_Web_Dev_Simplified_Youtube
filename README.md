@@ -4,4 +4,4 @@ My First Calculator Web Application - Concept taken from Web Dev Simplified YouT
 * In CSS I have used CSS Grid and Flexbox to make the layout.
 * Used Javascript and DOM Manipulation to add functionality to the calculator.
 
-![alt text](images/calculator.png)
+![Calculator Demo Image](https://github.com/sayantikag98/Calculator_Web_Dev_Simplified_Youtube/blob/main/images/Calculator.png)
