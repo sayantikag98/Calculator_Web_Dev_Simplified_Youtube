@@ -55,5 +55,33 @@ document.querySelectorAll(".op").forEach(ele=>{
     });
 });
 
+/*
+
+This event listener does all the actual calculation of the calculator.
+
+*/
+
+document.querySelector(".equal").addEventListener("click",()=>{
+    document.querySelector(".previous-compute").textContent += str;
+    const operator = prevStr[prevStr.length - 1];
+    let ans = 0;
+    const op1 = parseInt(prevStr.substr(0,prevStr.length - 1)),
+    op2 = parseInt(str); 
+    if(operator === "+"){
+        ans = op1 + op2;
+    }
+    else if (operator === "-"){
+        ans = op1 - op2;
+    }
+    else if (operator === "*"){
+        ans = op1 * op2;
+    }
+    else if (operator === "/"){
+        ans = op1/op2;
+    }
+    console.log(ans);
+    document.querySelector(".current-compute").textContent = ans;
+});
+
 
     
